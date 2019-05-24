@@ -265,6 +265,14 @@
 
     // Si está vacío el campo: $email
     if ( empty($email) ) {
+
+      // validación de usuario
+
+    if (empty($user)) {
+        $errors["user"] = "El campo usuario es obligatorio";
+    } elseif ( userExist($user) ) { // Si el usuario ya existe, es porque alguien ya se registró con el mismo
+  			$errors["user"] = "Ese usuario ya está registrado";
+    }
       $errors['email'] = 'El campo email es obligatorio';
     } elseif ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) { // Si el campo $email no es un email válido
       $errors['email'] = 'Introducí un formato de email válido';
